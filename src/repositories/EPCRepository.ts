@@ -9,7 +9,7 @@ export async function findAll() {
 }
 
 export async function insert(data:TEPCs) {
-  await prisma.ePC.create({data});  
+  await prisma.ePC.create( {data} );  
 }
 
 export async function getByEPC(codigo: string){
