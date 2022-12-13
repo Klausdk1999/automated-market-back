@@ -49,18 +49,24 @@ model Recommendation {
 }
 
 model Purchase{
-  id       Int @id @default(autoincrement())
-  owner_id Int
-  owner    User @relation(fields: [owner_id], references: [id])
-  compra   String
-  hora     DateTime
+  id           Int @id @default(autoincrement())
+  owner_id     Int
+  owner        User @relation(fields: [owner_id], references: [id])
+  reference_id String  @default("null")
+  payment_url  String  @default("null")
+  hora         DateTime @default(now())
+  EPC          EPC[]
+
   @@map("purchases")
 }
 
 model EPC{
-  id         Int @id @default(autoincrement())
-  code       String
-  product_id Int
-  product    Product @relation(fields: [product_id], references: [id])
+  id          Int @id @default(autoincrement())
+  code        String
+  purchase_id Int    @default(0)
+  purchase    Purchase @relation(fields: [purchase_id], references: [id])
+  product_id  Int
+  product     Product @relation(fields: [product_id], references: [id])
+
   @@map("epcs")
 }
