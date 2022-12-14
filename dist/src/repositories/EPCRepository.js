@@ -56,11 +56,11 @@ function findAll() {
     });
 }
 exports.findAll = findAll;
-function insert(data) {
+function insert(code, product_id) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, database_1["default"].ePC.create({ data: data })];
+                case 0: return [4 /*yield*/, database_1["default"].$queryRaw(templateObject_1 || (templateObject_1 = __makeTemplateObject(["INSERT INTO epcs (code, product_id ,purchase_id) VALUES (", ", ", ", 0);"], ["INSERT INTO epcs (code, product_id ,purchase_id) VALUES (", ", ", ", 0);"])), code, product_id)];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -74,7 +74,7 @@ function getByEPC(codigo) {
         var product;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, database_1["default"].$queryRaw(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n      SELECT * FROM products\n      JOIN epcs ON products.id = epcs.product_id\n      WHERE epcs.code = ", ";"], ["\n      SELECT * FROM products\n      JOIN epcs ON products.id = epcs.product_id\n      WHERE epcs.code = ", ";"])), codigo)];
+                case 0: return [4 /*yield*/, database_1["default"].$queryRaw(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n      SELECT * FROM products\n      JOIN epcs ON products.id = epcs.product_id\n      WHERE epcs.code = ", ";"], ["\n      SELECT * FROM products\n      JOIN epcs ON products.id = epcs.product_id\n      WHERE epcs.code = ", ";"])), codigo)];
                 case 1:
                     product = _a.sent();
                     console.log(product);
@@ -89,10 +89,10 @@ function create_purchase() {
         var id;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, database_1["default"].$queryRaw(templateObject_2 || (templateObject_2 = __makeTemplateObject(["INSERT INTO purchases (owner_id) VALUES (1) RETURNING id;"], ["INSERT INTO purchases (owner_id) VALUES (1) RETURNING id;"])))];
+                case 0: return [4 /*yield*/, database_1["default"].$queryRaw(templateObject_3 || (templateObject_3 = __makeTemplateObject(["INSERT INTO purchases (owner_id) VALUES (1) RETURNING id;"], ["INSERT INTO purchases (owner_id) VALUES (1) RETURNING id;"])))];
                 case 1:
                     id = _a.sent();
-                    return [2 /*return*/, id];
+                    return [2 /*return*/, id[0].id];
             }
         });
     });
@@ -103,7 +103,7 @@ function addPurchase(epc, purchase_id) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: // update EPC com purchase id
-                return [4 /*yield*/, database_1["default"].$queryRaw(templateObject_3 || (templateObject_3 = __makeTemplateObject(["UPDATE epcs SET purchase_id = ", " WHERE epcs.code = ", " ;"], ["UPDATE epcs SET purchase_id = ", " WHERE epcs.code = ", " ;"])), purchase_id, epc)];
+                return [4 /*yield*/, database_1["default"].$queryRaw(templateObject_4 || (templateObject_4 = __makeTemplateObject(["UPDATE epcs SET purchase_id=", " WHERE epcs.code=", " ;"], ["UPDATE epcs SET purchase_id=", " WHERE epcs.code=", " ;"])), purchase_id, epc)];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -112,12 +112,11 @@ function addPurchase(epc, purchase_id) {
     });
 }
 exports.addPurchase = addPurchase;
-// picpay reference must be purchase id
 function addPicPay(data) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, database_1["default"].$queryRaw(templateObject_4 || (templateObject_4 = __makeTemplateObject(["UPDATE purchases SET reference_id = ", ", payment_url=", "  WHERE purchases.id = ", " ;"], ["UPDATE purchases SET reference_id = ", ", payment_url=", "  WHERE purchases.id = ", " ;"])), data.reference_id, data.payment_url, data.id)];
+                case 0: return [4 /*yield*/, database_1["default"].$queryRaw(templateObject_5 || (templateObject_5 = __makeTemplateObject(["UPDATE purchases SET reference_id = ", ", payment_url=", "  WHERE purchases.id = ", " ;"], ["UPDATE purchases SET reference_id = ", ", payment_url=", "  WHERE purchases.id = ", " ;"])), data.reference_id, data.payment_url, data.id)];
                 case 1: // update picpay info no purchase
                 return [2 /*return*/, _a.sent()];
             }
@@ -125,4 +124,4 @@ function addPicPay(data) {
     });
 }
 exports.addPicPay = addPicPay;
-var templateObject_1, templateObject_2, templateObject_3, templateObject_4;
+var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5;

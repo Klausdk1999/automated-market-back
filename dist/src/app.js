@@ -37,6 +37,7 @@ var userRouter_1 = __importDefault(require("./routes/userRouter"));
 var recommendationsRouter_1 = __importDefault(require("./routes/recommendationsRouter"));
 //import valuesRouter from './routes/valuesRouter';
 var EPCRouter_1 = __importDefault(require("./routes/EPCRouter"));
+var paymentRouter_1 = __importDefault(require("./routes/paymentRouter"));
 dotenv_1["default"].config();
 var app = (0, express_1["default"])();
 app.use((0, cors_1["default"])());
@@ -47,7 +48,7 @@ if (process.env.NODE_ENV === 'test') {
 }
 app.use(productRouter_1["default"]);
 app.use(recommendationsRouter_1["default"]);
-//app.use(valuesRouter)
+app.use(paymentRouter_1["default"]);
 app.use(EPCRouter_1["default"]);
 app.use(errorHandlerMiddleware_1.handleErrorsMiddleware);
 exports["default"] = app;

@@ -61,6 +61,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.receiveInfo = exports.receivePurchase = void 0;
 var EPCService = __importStar(require("../services/EPCService"));
+//export type CreatePurchaseData = Omit<Purchase, "id" | "reference_id" | "payment_url">;
 function receivePurchase(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var products_epcs;
@@ -71,7 +72,7 @@ function receivePurchase(req, res) {
                     return [4 /*yield*/, EPCService.purchase(products_epcs)];
                 case 1:
                     _a.sent();
-                    res.status(201);
+                    res.sendStatus(201);
                     return [2 /*return*/];
             }
         });
@@ -88,7 +89,7 @@ function receiveInfo(req, res) {
                     return [4 /*yield*/, EPCService.picpay(data)];
                 case 1:
                     _a.sent();
-                    res.status(201);
+                    res.sendStatus(201);
                     return [2 /*return*/];
             }
         });

@@ -5,13 +5,6 @@ export async function findByCodigo(codigo:string) {
   return productReturn;
 }
 
-export async function insertEPC(data:any) {
-
-	await epcRepository.insert(data.code,data.product_id);
-
-  return
-}
-
 export async function purchase(products:any) {
 
   const purchase_id = await epcRepository.create_purchase();
