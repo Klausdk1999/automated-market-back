@@ -59,70 +59,39 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.picpay = exports.purchase = exports.insertEPC = exports.findByCodigo = void 0;
-var epcRepository = __importStar(require("../repositories/EPCRepository"));
-function findByCodigo(codigo) {
+exports.receiveInfo = exports.receivePurchase = void 0;
+var EPCService = __importStar(require("../services/EPCService"));
+function receivePurchase(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var productReturn;
+        var products_epcs;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, epcRepository.getByEPC(codigo)];
-                case 1:
-                    productReturn = _a.sent();
-                    return [2 /*return*/, productReturn];
-            }
-        });
-    });
-}
-exports.findByCodigo = findByCodigo;
-function insertEPC(data) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, epcRepository.insert(data)];
+                case 0:
+                    products_epcs = req.body.epcs;
+                    return [4 /*yield*/, EPCService.purchase(products_epcs)];
                 case 1:
                     _a.sent();
+                    res.status(201);
                     return [2 /*return*/];
             }
         });
     });
 }
-exports.insertEPC = insertEPC;
-function purchase(products) {
+exports.receivePurchase = receivePurchase;
+function receiveInfo(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var purchase_id, i;
+        var data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, epcRepository.create_purchase()];
-                case 1:
-                    purchase_id = _a.sent();
-                    i = 0;
-                    _a.label = 2;
-                case 2:
-                    if (!(i < products.length)) return [3 /*break*/, 5];
-                    return [4 /*yield*/, epcRepository.addPurchase(products[i], purchase_id)];
-                case 3:
-                    _a.sent();
-                    _a.label = 4;
-                case 4:
-                    i++;
-                    return [3 /*break*/, 2];
-                case 5: return [2 /*return*/];
-            }
-        });
-    });
-}
-exports.purchase = purchase;
-function picpay(data) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, epcRepository.addPicPay(data)];
+                case 0:
+                    data = req.body;
+                    return [4 /*yield*/, EPCService.picpay(data)];
                 case 1:
                     _a.sent();
+                    res.status(201);
                     return [2 /*return*/];
             }
         });
     });
 }
-exports.picpay = picpay;
+exports.receiveInfo = receiveInfo;

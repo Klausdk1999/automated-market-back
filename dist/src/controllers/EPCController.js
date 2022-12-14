@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.getProductByCode = void 0;
+exports.associateProductByCode = exports.getProductByCode = void 0;
 var EPCService_1 = require("../services/EPCService");
 function getProductByCode(req, res) {
     return __awaiter(this, void 0, void 0, function () {
@@ -55,3 +55,21 @@ function getProductByCode(req, res) {
     });
 }
 exports.getProductByCode = getProductByCode;
+function associateProductByCode(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    data = req.body;
+                    data.product_id = Number(data.product_id);
+                    return [4 /*yield*/, (0, EPCService_1.insertEPC)(data)];
+                case 1:
+                    _a.sent();
+                    res.sendStatus(201);
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.associateProductByCode = associateProductByCode;

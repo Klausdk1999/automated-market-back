@@ -9,6 +9,7 @@ import userRouter from './routes/userRouter';
 import recommendationsRouter from './routes/recommendationsRouter';
 //import valuesRouter from './routes/valuesRouter';
 import rfidRouter from './routes/EPCRouter'
+import paymentRouter from './routes/paymentRouter';
 
 dotenv.config();
 
@@ -23,7 +24,7 @@ if (process.env.NODE_ENV === 'test') {
 
 app.use(productRouter);
 app.use(recommendationsRouter)
-//app.use(valuesRouter)
+app.use(paymentRouter)
 app.use(rfidRouter)
 app.use(handleErrorsMiddleware);
 

@@ -22,7 +22,7 @@ export async function purchase(products:any) {
   for(let i = 0; i < products.length; i++) {
     await epcRepository.addPurchase(products[i],purchase_id);
   }
-
+  
   return
 }
 

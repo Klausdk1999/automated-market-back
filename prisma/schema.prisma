@@ -63,7 +63,7 @@ model Purchase{
 model EPC{
   id          Int @id @default(autoincrement())
   code        String
-  purchase_id Int    @default(0)
+  purchase_id Int
   purchase    Purchase @relation(fields: [purchase_id], references: [id])
   product_id  Int
   product     Product @relation(fields: [product_id], references: [id])

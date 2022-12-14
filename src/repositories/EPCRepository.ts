@@ -8,8 +8,8 @@ export async function findAll() {
   return await prisma.ePC.findMany();
 }
 
-export async function insert(data:TEPCs) {
-  await prisma.ePC.create( {data} ); 
+export async function insert(data:any) {
+  await prisma.$queryRaw`INSERT INTO epcs (code,product_id,purchase_id) VALUES (${data.code},${data.product_id},0);`;
   return 
 }
 
@@ -25,15 +25,17 @@ export async function getByEPC(codigo: string){
 
 export async function create_purchase() {
   const id = await prisma.$queryRaw`INSERT INTO purchases (owner_id) VALUES (1) RETURNING id;`;
-  return id;
+  
+  return id[0].id;
 }
 
 export async function addPurchase(epc,purchase_id) { // update EPC com purchase id
-  await prisma.$queryRaw`UPDATE epcs SET purchase_id = ${purchase_id} WHERE epcs.code = ${epc} ;`;
+  
+  await prisma.$queryRaw`UPDATE epcs SET purchase_id=${purchase_id} WHERE epcs.code=${epc} ;`;
   
   return
 }
-// picpay reference must be purchase id
+
 export async function addPicPay(data) { // update picpay info no purchase
   return await prisma.$queryRaw`UPDATE purchases SET reference_id = ${data.reference_id}, payment_url=${data.payment_url}  WHERE purchases.id = ${data.id} ;`;
 }

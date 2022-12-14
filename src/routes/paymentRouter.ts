@@ -4,9 +4,9 @@ import validateToken from '../middlewares/validateTokenMiddleware';
 import validateSchema from '../middlewares/validateSchemaMiddleware';
 import productSchema from '../schemas/productSchema';
 
-const productRouter = Router();
+const paymentRouter = Router();
 
-productRouter.post('/purchase', validateToken, receivePurchase);
-productRouter.post('/picpay', receiveInfo);
+paymentRouter.post('/purchase', receivePurchase);
+paymentRouter.post('/picpay', receiveInfo);
 
-export default productRouter;
+export default paymentRouter;
