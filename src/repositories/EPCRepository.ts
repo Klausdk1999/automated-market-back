@@ -9,7 +9,7 @@ export async function findAll() {
 }
 
 export async function insert(data:any) {
-  await prisma.$queryRaw`INSERT INTO epcs (code,product_id,purchase_id) VALUES (${data.code},${data.product_id},0);`;
+  await prisma.$queryRaw`INSERT INTO epcs (code,product_id) VALUES (${data.code},${data.product_id});`;
   return 
 }
 
