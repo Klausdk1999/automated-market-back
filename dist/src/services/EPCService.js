@@ -79,7 +79,7 @@ function insertEPC(data) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, epcRepository.insert(data)];
+                case 0: return [4 /*yield*/, epcRepository.insert(data.code, data.product_id)];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];

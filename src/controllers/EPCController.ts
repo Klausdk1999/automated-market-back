@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import {findByCodigo, insertEPC} from '../services/EPCService';
+import {findByCodigo} from '../services/EPCService';
+import {create} from '../repositories/createEPC'
 
 export async function getProductByCode(req: Request, res: Response) {
 	let {codigo} = req.body;
@@ -9,9 +10,8 @@ export async function getProductByCode(req: Request, res: Response) {
 
 export async function associateProductByCode(req: Request, res: Response) {
 	const data = req.body;
-	data.product_id=Number(data.product_id);
 
-	await insertEPC(data);
+	await create(data.code,data.product_id);
 
 	res.sendStatus(201);
 }
