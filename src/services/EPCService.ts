@@ -7,7 +7,7 @@ export async function findByCodigo(codigo:string) {
 
 export async function insertEPC(data:any) {
 
-	await epcRepository.insert(data);
+	await epcRepository.insert(data.code,data.product_id);
 
   return
 }
